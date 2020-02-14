@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.NonNull;
+
 
 
 @Entity
@@ -13,6 +15,7 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@NonNull
 	private int id;
 
 	private String lastname;

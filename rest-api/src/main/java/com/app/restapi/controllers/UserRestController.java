@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.restapi.exceptions.NotFoundException;
@@ -23,19 +24,22 @@ import com.app.restapi.repository.IUserRepository;
 public class UserRestController {
 	
 	IUserRepository userRepository;
-	
-	@GetMapping
-	public List<User> getAllUser() {
+	public UserRestController(IUserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+	@GetMapping("/all")
+	@ResponseBody public List<User> getAllUser() {
 		return userRepository.findAll();		
 	}
 	
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public User getUserById(@PathVariable(value = "id") Integer id) throws NotFoundException {
 	    return userRepository.findById(id)
 	             .orElseThrow(() -> new NotFoundException(id));
 	}
+	//private setId()
 	 
-	@PutMapping("/user/{id}")
+	@PutMapping("/{id}")
 	public User updateUser(@PathVariable(value = "id") Integer userId,
 	                           @Valid @RequestBody User userModified) throws NotFoundException {
 
@@ -54,7 +58,7 @@ public class UserRestController {
 		return updatedUser;
 	}
 	
-	@DeleteMapping("/user/{id}")
+	@DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable(value = "id") Integer userId) throws NotFoundException {
 		User userOver = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(userId));

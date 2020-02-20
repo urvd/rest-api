@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.restapi.controllers.UserRestController;
+import com.app.restapi.repository.UserRepository;
+
 @SpringBootApplication
 @RestController
 public class RestApiApplication {

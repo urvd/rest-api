@@ -4,7 +4,7 @@ services:
    backend:
         build:
            context: ./rest-api
-           #dockerfile: Dockerfile
+           dockerfile: Dockerfile
         ports:
            - "80:8888"
         depends_on:

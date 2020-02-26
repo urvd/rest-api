@@ -3,6 +3,8 @@ package com.app.restapi.models;
 import java.io.Serializable;
 import java.lang.annotation.Target;
 import java.sql.Date;
+import java.util.HashMap;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +26,8 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import com.app.restapi.Utils.AutoGenerateIdUtils;
 import com.app.restapi.Utils.DateUtils;
+import com.app.restapi.constantes.Const;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -33,40 +38,30 @@ import lombok.experimental.Accessors;
 @Getter
 @Table(name = "users")
 public class User {
-//		public  User() {}	
-//		public User(int id, String lastname, String firstname, @NonNull String email, int age, String tel,
-//			String dateNaissance, String dateCreation, String dateModification) {
-//		this.id = id;
-//		this.lastname = lastname;
-//		this.firstname = firstname;
-//		this.email = email;
-//		this.age = age;
-//		this.tel = tel;
-//		this.dateNaissance = dateNaissance;
-//		this.dateCreation = dateCreation;
-//		this.dateModification = dateModification;
-//	}
 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(insertable = false)
 	private Integer id;
+	
+    @Column(nullable = true, unique = true)
+	private String codeName;
 	
 	private String lastname;
 	
 	private String firstname;
 
+	@Column(unique=true)
 	private String email;
 	
 	private Integer age;
 	
 	private String tel;	
 	
-    private String dateNaissance;
-	
+    @Column(nullable = true, unique = true)
     private String dateCreation;
 	
+    @Column(nullable = true)
     private String dateModification;
 
 
@@ -82,6 +77,21 @@ public class User {
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	
+	/**
+	 * @return the codeName
+	 */
+	public String getCodeName() {
+		return codeName;
+	}
+
+	/**
+	 * @param codeName the codeName to set
+	 */
+	public void setCodeName(String codeName) {
+		this.codeName = codeName;
 	}
 
 	/**
@@ -152,20 +162,6 @@ public class User {
 	 */
 	public void setTel(String tel) {
 		this.tel = tel;
-	}
-
-	/**
-	 * @return the dateNaissance
-	 */
-	public String getDateNaissance() {
-		return dateNaissance;
-	}
-
-	/**
-	 * @param dateNaissance the dateNaissance to set
-	 */
-	public void setDateNaissance(String dateNaissance) {
-		this.dateNaissance = dateNaissance;
 	}
 
 	/**

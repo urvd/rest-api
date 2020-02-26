@@ -1,19 +1,23 @@
 package com.app.restapi.Utils;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class DateUtils {
 
 	@SuppressWarnings("deprecation")
-	public static Date setDateMySqlFormat() {
-		java.util.Date d1 = new java.util.Date();
-		
-		return (java.sql.Date) new java.sql.Date(d1.getYear(),d1.getMonth(),d1.getDate());
+	public static String setDate() {
+		LocalDateTime localDateTime = LocalDateTime.now();
+		return localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
 	}
-	public static Date setDateMySqlFormat(String datestr) {
-		return (java.sql.Date) Date.valueOf(datestr); //param = format "yyyy-[m]m-[d]d"
-
+	public static String setDate(String an, String mois, String jour) {
+		LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(an), Integer.parseInt(mois), Integer.parseInt(jour),2,5,8);
+		return localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));		
 	}
 
 }

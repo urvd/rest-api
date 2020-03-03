@@ -90,11 +90,7 @@ public class UserRestController {
 	
 	@PostMapping("/new")
 	User createNewUser(@RequestBody HashMap<String,Object> newUser) throws UserException{
-		checkSomeUsersValuesExist(newUser);
-		newUser.put("codeName", AutoGenerateIdUtils.generateNumbers(Const.LENGHT_ID));
-		newUser.put("dateCreation", DateUtils.setDate().toString());
-		newUser.put("dateModification", "");
-		User user = DataUser.map(newUser);
+		User user = DataUser.map(setSomeValue(newUser));
 		return userRepository.save(user);
 	}
 
@@ -102,9 +98,17 @@ public class UserRestController {
 	public List<User> createNewUsers(@RequestBody List<HashMap<String,Object>> newUsers) throws UserException {
 		List<User> mapU = new ArrayList<>();
 		for(HashMap<String,Object> u:newUsers) {
-			mapU.add(createNewUser(u));
+			mapU.add(DataUser.map(setSomeValue(u)));
  		}
-		return mapU;
+		return userRepository.saveAll(mapU);
+	}
+	
+	private HashMap<String,Object>  setSomeValue(HashMap<String,Object> newUser) throws UserException{
+		checkSomeUsersValuesExist(newUser);
+		newUser.put("codeName", AutoGenerateIdUtils.generateNumbers(Const.LENGHT_ID));
+		newUser.put("dateCreation", DateUtils.setDate().toString());
+		newUser.put("dateModification", "");
+		return newUser;
 	}
     private void checkSomeUsersValuesExist(HashMap<String,Object> user) throws UserException{
     	boolean existUserEmail = !getUserByParam(user.get("email")).isEmpty(); 

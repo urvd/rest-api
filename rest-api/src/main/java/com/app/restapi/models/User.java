@@ -44,7 +44,7 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-    @Column(nullable = true, unique = true)
+    @Column(unique = true)
 	private String codeName;
 	
 	private String lastname;
@@ -58,7 +58,7 @@ public class User {
 	
 	private String tel;	
 	
-    @Column(nullable = true, unique = true)
+    @Column(nullable = true)
     private String dateCreation;
 	
     @Column(nullable = true)

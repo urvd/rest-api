@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.restapi.controllers.UserRestController;
 import com.app.restapi.repository.UserRepository;
 
-
+@SpringBootApplication
 @RestController
 public class RestApiApplication {
 
@@ -16,8 +16,8 @@ public class RestApiApplication {
 	public String hello() {
 		return "Hello the world !!!";
 	}
-//	public static void main(String[] args) {
-//		SpringApplication.run(RestApiApplication.class, args);
-//	}
+	public static void main(String[] args) {
+		SpringApplication.run(RestApiApplication.class, args);
+	}
 
 }
